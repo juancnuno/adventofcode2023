@@ -2,6 +2,8 @@ package com.juancnuno.adventofcode2023.day02;
 
 import java.util.regex.Pattern;
 
+import com.juancnuno.adventofcode.Matcher;
+
 public record Set(int redCubeCount, int greenCubeCount, int blueCubeCount) {
 
     private static final Pattern PATTERN = Pattern.compile("(\\d+) \\w+");
@@ -15,27 +17,17 @@ public record Set(int redCubeCount, int greenCubeCount, int blueCubeCount) {
 
         for (var count : counts) {
             if (count.endsWith("red")) {
-                redCubeCount = parseCount(count);
+                redCubeCount = new Matcher(PATTERN, count).intGroup(1);
             } else if (count.endsWith("green")) {
-                greenCubeCount = parseCount(count);
+                greenCubeCount = new Matcher(PATTERN, count).intGroup(1);
             } else if (count.endsWith("blue")) {
-                blueCubeCount = parseCount(count);
+                blueCubeCount = new Matcher(PATTERN, count).intGroup(1);
             } else {
                 assert false;
             }
         }
 
         return new Set(redCubeCount, greenCubeCount, blueCubeCount);
-    }
-
-    private static int parseCount(String string) {
-        var matcher = PATTERN.matcher(string);
-
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(string);
-        }
-
-        return Integer.parseInt(matcher.group(1));
     }
 
     boolean isPossible(Set set) {

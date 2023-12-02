@@ -5,22 +5,20 @@ import java.util.Collection;
 import java.util.function.ToIntFunction;
 import java.util.regex.Pattern;
 
+import com.juancnuno.adventofcode.Matcher;
+
 public record Game(int id, Collection<Set> sets) {
 
     private static final Pattern PATTERN = Pattern.compile("Game (\\d+): (.+)");
 
     public static Game parse(String string) {
-        var matcher = PATTERN.matcher(string);
-
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(string);
-        }
+        var matcher = new Matcher(PATTERN, string);
 
         var sets = Arrays.stream(matcher.group(2).split("; "))
                 .map(Set::parse)
                 .toList();
 
-        return new Game(Integer.parseInt(matcher.group(1)), sets);
+        return new Game(matcher.intGroup(1), sets);
     }
 
     public boolean isPossible(Set set) {
