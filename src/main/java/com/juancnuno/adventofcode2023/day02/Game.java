@@ -1,9 +1,11 @@
 package com.juancnuno.adventofcode2023.day02;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.function.ToIntFunction;
 import java.util.regex.Pattern;
 
-public record Game(int id, Iterable<Set> sets) {
+public record Game(int id, Collection<Set> sets) {
 
     private static final Pattern PATTERN = Pattern.compile("Game (\\d+): (.+)");
 
@@ -29,5 +31,20 @@ public record Game(int id, Iterable<Set> sets) {
         }
 
         return true;
+    }
+
+    public Set getMinSet() {
+        var redCubeCount = getMaxCount(Set::redCubeCount);
+        var greenCubeCount = getMaxCount(Set::greenCubeCount);
+        var blueCubeCount = getMaxCount(Set::blueCubeCount);
+
+        return new Set(redCubeCount, greenCubeCount, blueCubeCount);
+    }
+
+    private int getMaxCount(ToIntFunction<Set> cubeCount) {
+        return sets.stream()
+                .mapToInt(cubeCount)
+                .max()
+                .orElseThrow();
     }
 }

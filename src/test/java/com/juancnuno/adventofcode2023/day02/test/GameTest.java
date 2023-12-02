@@ -33,4 +33,16 @@ public final class GameTest {
         // Assert
         assertTrue(possible);
     }
+
+    @Test
+    public void getMinSet() {
+        // Arrange
+        var game = new Game(1, List.of(new Set(4, 0, 3), new Set(1, 2, 6), new Set(0, 2, 0)));
+
+        // Act
+        var set = game.getMinSet();
+
+        // Assert
+        assertEquals(new Set(4, 2, 6), set);
+    }
 }

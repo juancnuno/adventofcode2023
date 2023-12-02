@@ -43,4 +43,8 @@ public record Set(int redCubeCount, int greenCubeCount, int blueCubeCount) {
                 && greenCubeCount <= set.greenCubeCount
                 && blueCubeCount <= set.blueCubeCount;
     }
+
+    int getPower() {
+        return redCubeCount * greenCubeCount * blueCubeCount;
+    }
 }
