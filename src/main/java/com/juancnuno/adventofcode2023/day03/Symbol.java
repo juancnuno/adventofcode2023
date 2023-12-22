@@ -2,7 +2,15 @@ package com.juancnuno.adventofcode2023.day03;
 
 import java.util.Collection;
 
-record Symbol(Point location, char value) {
+final class Symbol {
+
+    private final Point location;
+    private final char value;
+
+    Symbol(Point location, char value) {
+        this.location = location;
+        this.value = value;
+    }
 
     int getGearRatio(Collection<Number> partNumbers) {
         if (value != '*') {
@@ -17,7 +25,7 @@ record Symbol(Point location, char value) {
             return 0;
         }
 
-        return numbers.get(0).value() * numbers.get(1).value();
+        return numbers.get(0).getValue() * numbers.get(1).getValue();
     }
 
     private boolean isAdjacent(Number number) {

@@ -5,7 +5,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.IntStream;
 
-public record Number(Point location, int value) {
+public final class Number {
+
+    private final Point location;
+    private final int value;
+
+    public Number(Point location, int value) {
+        this.location = location;
+        this.value = value;
+    }
 
     public boolean isPartNumber(Collection<Point> symbolLocations) {
         return !Collections.disjoint(symbolLocations, getAdjacentLocations());
@@ -36,5 +44,9 @@ public record Number(Point location, int value) {
         }
 
         return length;
+    }
+
+    int getValue() {
+        return value;
     }
 }

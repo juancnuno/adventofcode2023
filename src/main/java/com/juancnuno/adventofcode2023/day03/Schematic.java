@@ -1,8 +1,8 @@
 package com.juancnuno.adventofcode2023.day03;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -22,7 +22,7 @@ public final class Schematic {
     public Schematic(Stream<String> lines) {
         this.lines = lines;
 
-        numbers = new HashSet<>();
+        numbers = new ArrayList<>();
         locationToSymbolMap = new HashMap<>();
         builder = new StringBuilder();
     }
@@ -31,7 +31,7 @@ public final class Schematic {
         lines.forEach(this::parse);
 
         return partNumbers()
-                .mapToInt(Number::value)
+                .mapToInt(Number::getValue)
                 .sum();
     }
 
