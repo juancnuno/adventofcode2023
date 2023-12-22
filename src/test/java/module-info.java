@@ -5,4 +5,5 @@ module com.juancnuno.adventofcode2023.test {
 
     exports com.juancnuno.adventofcode2023.day01.test;
     exports com.juancnuno.adventofcode2023.day02.test;
+    exports com.juancnuno.adventofcode2023.day03.test;
 }
