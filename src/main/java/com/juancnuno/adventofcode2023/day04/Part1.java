@@ -11,7 +11,7 @@ public final class Part1 {
 
     public static int getWorthSum(Stream<String> scratchcards) {
         return scratchcards
-                .map(Scratchcard::new)
+                .map(Scratchcard::parse)
                 .mapToInt(Scratchcard::getWorth)
                 .sum();
     }

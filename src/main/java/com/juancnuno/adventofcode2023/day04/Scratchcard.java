@@ -7,24 +7,20 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class Scratchcard {
+public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer> numbers) {
 
     private static final String DIGITS = "\\d+";
     private static final String INTS = "((?: +" + DIGITS + ")+)";
     private static final Pattern PATTERN = Pattern.compile("Card +" + DIGITS + ':' + INTS + " \\|" + INTS);
 
-    private final Collection<Integer> winningNumbers;
-    private final Collection<Integer> numbers;
-
-    public Scratchcard(String scratchcard) {
+    public static Scratchcard parse(String scratchcard) {
         var matcher = PATTERN.matcher(scratchcard);
 
         if (!matcher.matches()) {
             throw new IllegalArgumentException(scratchcard);
         }
 
-        winningNumbers = intsGroup(matcher, 1);
-        numbers = intsGroup(matcher, 2);
+        return new Scratchcard(intsGroup(matcher, 1), intsGroup(matcher, 2));
     }
 
     private static Collection<Integer> intsGroup(Matcher matcher, int group) {
@@ -35,21 +31,25 @@ public final class Scratchcard {
     }
 
     public int getWorth() {
-        var n = new ArrayList<Integer>(winningNumbers);
-        n.retainAll(numbers);
+        var count = getWinningNumberCount();
 
-        var size = n.size();
-
-        if (size == 0) {
+        if (count == 0) {
             return 0;
         }
 
         var worth = 1;
 
-        for (var i = 1; i < size; i++) {
+        for (var i = 1; i < count; i++) {
             worth *= 2;
         }
 
         return worth;
+    }
+
+    int getWinningNumberCount() {
+        var n = new ArrayList<>(winningNumbers);
+        n.retainAll(numbers);
+
+        return n.size();
     }
 }
