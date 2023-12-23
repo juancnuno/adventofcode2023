@@ -21,12 +21,12 @@ public final class Table {
     }
 
     public int process() {
-        for (int i = 0, size = scratchcards.size(); i < size; i++) {
+        IntStream.range(0, scratchcards.size()).forEach(i -> {
             var scratchcard = scratchcards.get(i);
             var s = scratchcards.subList(i + 1, i + 1 + scratchcard.getWinningNumberCount());
 
             copy(s, scratchcardToCountMap.get(scratchcard));
-        }
+        });
 
         return scratchcardToCountMap.values().stream()
                 .mapToInt(count -> count)
