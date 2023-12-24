@@ -6,4 +6,5 @@ module com.juancnuno.adventofcode2023 {
     exports com.juancnuno.adventofcode2023.day02;
     exports com.juancnuno.adventofcode2023.day03;
     exports com.juancnuno.adventofcode2023.day04;
+    exports com.juancnuno.adventofcode2023.day05;
 }
