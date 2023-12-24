@@ -3,7 +3,6 @@ package com.juancnuno.adventofcode2023.day04;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import com.juancnuno.adventofcode.Matcher;
@@ -11,8 +10,8 @@ import com.juancnuno.adventofcode.Matcher;
 public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer> numbers) {
 
     private static final String DIGITS = "\\d+";
-    private static final String INTS = "((?: +" + DIGITS + ")+)";
-    private static final Pattern PATTERN = Pattern.compile("Card +" + DIGITS + ':' + INTS + " \\|" + INTS);
+    private static final String INTS = "((?: *" + DIGITS + ")+)";
+    private static final Pattern PATTERN = Pattern.compile("Card +" + DIGITS + ": +" + INTS + " \\| +" + INTS);
 
     public static Scratchcard parse(String scratchcard) {
         var matcher = new Matcher(PATTERN, scratchcard);
@@ -21,7 +20,6 @@ public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer
 
     private static Collection<Integer> ints(String string) {
         return Arrays.stream(string.split(" +"))
-                .filter(Predicate.not(CharSequence::isEmpty))
                 .map(Integer::parseInt)
                 .toList();
     }
