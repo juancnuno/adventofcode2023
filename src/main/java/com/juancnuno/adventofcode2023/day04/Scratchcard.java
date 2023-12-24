@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.juancnuno.adventofcode.Matcher;
 
 public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer> numbers) {
 
@@ -14,17 +15,12 @@ public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer
     private static final Pattern PATTERN = Pattern.compile("Card +" + DIGITS + ':' + INTS + " \\|" + INTS);
 
     public static Scratchcard parse(String scratchcard) {
-        var matcher = PATTERN.matcher(scratchcard);
-
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(scratchcard);
-        }
-
-        return new Scratchcard(intsGroup(matcher, 1), intsGroup(matcher, 2));
+        var matcher = new Matcher(PATTERN, scratchcard);
+        return new Scratchcard(ints(matcher.group(1)), ints(matcher.group(2)));
     }
 
-    private static Collection<Integer> intsGroup(Matcher matcher, int group) {
-        return Arrays.stream(matcher.group(group).split(" +"))
+    private static Collection<Integer> ints(String string) {
+        return Arrays.stream(string.split(" +"))
                 .filter(Predicate.not(CharSequence::isEmpty))
                 .map(Integer::parseInt)
                 .toList();
