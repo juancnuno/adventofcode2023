@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public final class Part2Seeds extends Seeds {
+public final class Part2Seeds implements Seeds {
 
     private final NavigableMap<Long, Integer> map;
 

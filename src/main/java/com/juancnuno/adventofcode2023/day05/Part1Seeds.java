@@ -2,7 +2,7 @@ package com.juancnuno.adventofcode2023.day05;
 
 import java.util.Arrays;
 
-public final class Part1Seeds extends Seeds {
+public final class Part1Seeds implements Seeds {
 
     private final long[] seeds;
 
