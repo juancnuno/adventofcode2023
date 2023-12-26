@@ -12,7 +12,7 @@ public final class Part2Seeds implements Seeds {
     public Part2Seeds(long[] longs) {
         var endpoints = new ArrayList<Endpoint>();
 
-        for (int i = 0; i < longs.length; i += 2) {
+        for (var i = 0; i < longs.length; i += 2) {
             var value = longs[i];
 
             endpoints.add(new Endpoint(value, Endpoint.Type.LOWER));
@@ -24,7 +24,7 @@ public final class Part2Seeds implements Seeds {
         map = new TreeMap<>();
         map.put(0L, 0);
 
-        int count = 0;
+        var count = 0;
 
         for (var endpoint : endpoints) {
             count += endpoint.type.adjustment;
