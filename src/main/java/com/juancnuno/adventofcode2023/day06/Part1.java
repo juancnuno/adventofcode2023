@@ -17,15 +17,15 @@ public final class Part1 {
     }
 
     public static int getWinCountProduct(String races) {
-        var i = races.lines().iterator();
+        var lines = races.lines().iterator();
 
-        var times = new Matcher(TIMES, i.next()).intsGroup(1);
-        var distances = new Matcher(DISTANCES, i.next()).intsGroup(1);
+        var times = new Matcher(TIMES, lines.next()).intsGroup(1).iterator();
+        var distances = new Matcher(DISTANCES, lines.next()).intsGroup(1).iterator();
 
         var product = 1;
 
-        for (int j = 0, size = times.size(); j < size; j++) {
-            product *= getWinCount(new Race(times.get(j), distances.get(j)));
+        while (times.hasNext()) {
+            product *= getWinCount(new Race(times.next(), distances.next()));
         }
 
         return product;
