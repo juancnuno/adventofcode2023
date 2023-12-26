@@ -15,6 +15,8 @@ public final class MapTest {
 
         map.add(new Ranges("50 98 2"));
         map.add(new Ranges("52 50 48"));
+
+        map.initInverse();
     }
 
     @Test
@@ -32,13 +34,13 @@ public final class MapTest {
         var destination = map.get(50);
 
         // Assert
-        assertEquals(52, destination);
+        assertEquals(98, destination);
     }
 
     @Test
     public void get3() {
         // Act
-        var destination = map.get(98);
+        var destination = map.get(52);
 
         // Assert
         assertEquals(50, destination);
@@ -46,15 +48,6 @@ public final class MapTest {
 
     @Test
     public void get4() {
-        // Act
-        var destination = map.get(99);
-
-        // Assert
-        assertEquals(51, destination);
-    }
-
-    @Test
-    public void get5() {
         // Act
         var destination = map.get(100);
 

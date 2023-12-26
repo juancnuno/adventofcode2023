@@ -1,8 +1,9 @@
 package com.juancnuno.adventofcode2023.day05;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import com.juancnuno.adventofcode.Matcher;
@@ -12,8 +13,7 @@ public final class Almanac {
     private static final Pattern SEEDS = Pattern.compile("seeds: (.+)");
 
     private final Stream<String> almanac;
-    private Collection<Long> seeds;
-    private Map currentMap;
+    private final Function<long[], Seeds> newSeeds;
     private final Map seedToSoilMap;
     private final Map soilToFertilizerMap;
     private final Map fertilizerToWaterMap;
@@ -22,8 +22,12 @@ public final class Almanac {
     private final Map temperatureToHumidityMap;
     private final Map humidityToLocationMap;
 
-    public Almanac(Stream<String> almanac) {
+    private Seeds seeds;
+    private Map currentMap;
+
+    public Almanac(Stream<String> almanac, Function<long[], Seeds> newSeeds) {
         this.almanac = almanac;
+        this.newSeeds = newSeeds;
 
         seedToSoilMap = new Map();
         soilToFertilizerMap = new Map();
@@ -37,16 +41,23 @@ public final class Almanac {
     public long getLowestLocation() {
         almanac.forEach(this::parse);
 
-        return seeds.stream()
-                .mapToLong(Number::longValue)
-                .map(this::getLocation)
-                .min()
+        seedToSoilMap.initInverse();
+        soilToFertilizerMap.initInverse();
+        fertilizerToWaterMap.initInverse();
+        waterToLightMap.initInverse();
+        lightToTemperatureMap.initInverse();
+        temperatureToHumidityMap.initInverse();
+        humidityToLocationMap.initInverse();
+
+        return LongStream.range(0, Long.MAX_VALUE)
+                .filter(location -> seeds.contains(getSeed(location)))
+                .findFirst()
                 .orElseThrow();
     }
 
     private void parse(String line) {
         if (line.startsWith("seeds: ")) {
-            handleSeeds(line);
+            initSeeds(line);
         } else if (line.isEmpty()) {
             // Do nothing
         } else if (line.equals("seed-to-soil map:")) {
@@ -68,21 +79,23 @@ public final class Almanac {
         }
     }
 
-    private void handleSeeds(String seeds) {
-        this.seeds = Arrays.stream(new Matcher(SEEDS, seeds).group(1).split(" "))
-                .map(Long::parseLong)
-                .toList();
+    private void initSeeds(String seeds) {
+        var longs = Arrays.stream(new Matcher(SEEDS, seeds).group(1).split(" "))
+                .mapToLong(Long::parseLong)
+                .toArray();
+
+        this.seeds = newSeeds.apply(longs);
     }
 
-    private long getLocation(long seed) {
-        var soil = seedToSoilMap.get(seed);
-        var fertilizer = soilToFertilizerMap.get(soil);
-        var water = fertilizerToWaterMap.get(fertilizer);
-        var light = waterToLightMap.get(water);
-        var temperature = lightToTemperatureMap.get(light);
-        var humidity = temperatureToHumidityMap.get(temperature);
-        var location = humidityToLocationMap.get(humidity);
+    private long getSeed(long location) {
+        var humidity = humidityToLocationMap.get(location);
+        var temperature = temperatureToHumidityMap.get(humidity);
+        var light = lightToTemperatureMap.get(temperature);
+        var water = waterToLightMap.get(light);
+        var fertilizer = fertilizerToWaterMap.get(water);
+        var soil = soilToFertilizerMap.get(fertilizer);
+        var seed = seedToSoilMap.get(soil);
 
-        return location;
+        return seed;
     }
 }

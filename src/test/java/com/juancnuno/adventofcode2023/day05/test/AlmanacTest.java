@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import com.juancnuno.adventofcode2023.day05.Almanac;
+import com.juancnuno.adventofcode2023.day05.Part1Seeds;
+import com.juancnuno.adventofcode2023.day05.Part2Seeds;
 
 public final class AlmanacTest {
 
-    @Test
-    public void getLowestLocation() {
-        // Arrange
-        var string = """
+    private static final String ALMANAC = """
             seeds: 79 14 55 13
 
             seed-to-soil map:
@@ -46,12 +45,27 @@ public final class AlmanacTest {
             56 93 4
             """;
 
-        var almanac = new Almanac(string.lines());
+    @Test
+    public void getLowestLocation1() {
+        // Arrange
+        var almanac = new Almanac(ALMANAC.lines(), Part1Seeds::new);
 
         // Act
-        var number = almanac.getLowestLocation();
+        var location = almanac.getLowestLocation();
 
         // Assert
-        assertEquals(35, number);
+        assertEquals(35, location);
+    }
+
+    @Test
+    public void getLowestLocation2() {
+        // Arrange
+        var almanac = new Almanac(ALMANAC.lines(), Part2Seeds::new);
+
+        // Act
+        var location = almanac.getLowestLocation();
+
+        // Assert
+        assertEquals(46, location);
     }
 }

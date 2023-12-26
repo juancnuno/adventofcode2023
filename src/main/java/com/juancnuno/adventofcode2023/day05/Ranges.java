@@ -1,7 +1,5 @@
 package com.juancnuno.adventofcode2023.day05;
 
-import java.util.NoSuchElementException;
-
 public final class Ranges {
 
     private final long sourceRangeStart;
@@ -16,15 +14,15 @@ public final class Ranges {
         rangeLength = Integer.parseInt(array[2]);
     }
 
-    public long get(long source) {
-        if (!containsSource(source)) {
-            throw new NoSuchElementException();
-        }
-
-        return destinationRangeStart + source - sourceRangeStart;
+    long getSourceRangeStart() {
+        return sourceRangeStart;
     }
 
-    boolean containsSource(long source) {
-        return sourceRangeStart <= source && source < sourceRangeStart + rangeLength;
+    long getDestinationRangeStart() {
+        return destinationRangeStart;
+    }
+
+    int getRangeLength() {
+        return rangeLength;
     }
 }
