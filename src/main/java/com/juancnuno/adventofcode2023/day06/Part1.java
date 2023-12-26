@@ -1,7 +1,6 @@
 package com.juancnuno.adventofcode2023.day06;
 
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 import com.juancnuno.adventofcode.AdventOfCode;
 import com.juancnuno.adventofcode.Matcher;
@@ -25,17 +24,10 @@ public final class Part1 {
         var product = 1;
 
         while (times.hasNext()) {
-            product *= getWinCount(new Race(times.next(), distances.next()));
+            product *= new Race(times.next(), distances.next()).getWinCount();
         }
 
         return product;
-    }
-
-    private static int getWinCount(Race race) {
-        return (int) IntStream.rangeClosed(0, race.getTime())
-                .mapToObj(Boat::new)
-                .filter(boat -> boat.won(race))
-                .count();
     }
 
     public static void main(String[] args) {
