@@ -1,7 +1,6 @@
 package com.juancnuno.adventofcode2023.day04;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
@@ -15,13 +14,7 @@ public record Scratchcard(Collection<Integer> winningNumbers, Collection<Integer
 
     public static Scratchcard parse(String scratchcard) {
         var matcher = new Matcher(PATTERN, scratchcard);
-        return new Scratchcard(ints(matcher.group(1)), ints(matcher.group(2)));
-    }
-
-    private static Collection<Integer> ints(String string) {
-        return Arrays.stream(string.split(" +"))
-                .map(Integer::parseInt)
-                .toList();
+        return new Scratchcard(matcher.intsGroup(1), matcher.intsGroup(2));
     }
 
     public int getWorth() {
