@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.IntStream;
+
+import com.juancnuno.adventofcode.Multisets;
 
 public final class JsAreJokers extends Rule {
 
@@ -35,7 +36,7 @@ public final class JsAreJokers extends Rule {
                 .max(Comparator.comparing(Entry::getValue))
                 .orElseThrow();
 
-        IntStream.range(0, count).forEach(i -> map.compute(entry.getKey(), (card, c) -> c + 1));
+        Multisets.put(map, entry.getKey(), count);
         return map;
     }
 }

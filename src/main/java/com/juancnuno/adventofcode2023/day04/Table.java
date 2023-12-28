@@ -2,9 +2,10 @@ package com.juancnuno.adventofcode2023.day04;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import com.juancnuno.adventofcode.Multisets;
 
 public final class Table {
 
@@ -16,8 +17,7 @@ public final class Table {
                 .map(Scratchcard::parse)
                 .toList();
 
-        scratchcardToCountMap = this.scratchcards.stream()
-                .collect(Collectors.toMap(scratchcard -> scratchcard, scratchcard -> 1));
+        scratchcardToCountMap = this.scratchcards.stream().collect(Multisets.toMultiset());
     }
 
     public int process() {
@@ -34,10 +34,7 @@ public final class Table {
     }
 
     private void copy(Iterable<Scratchcard> scratchcards, int count) {
-        IntStream.range(0, count).forEach(i -> scratchcards.forEach(this::incrementCount));
-    }
-
-    private void incrementCount(Scratchcard scratchcard) {
-        scratchcardToCountMap.compute(scratchcard, (s, count) -> count + 1);
+        scratchcards.forEach(scratchcard -> Multisets.put(scratchcardToCountMap,
+                scratchcard, count));
     }
 }
