@@ -15,6 +15,6 @@ public final class JsAreJacks extends Rule {
 
     @Override
     Map<Card, Integer> count(Collection<Card> cards) {
-        return cards.stream().collect(Multisets.toMultiset());
+        return cards.stream().collect(Multisets.toEnumMultiset(Card.class));
     }
 }
