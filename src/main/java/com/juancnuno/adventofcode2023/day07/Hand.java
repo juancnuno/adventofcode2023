@@ -1,7 +1,6 @@
 package com.juancnuno.adventofcode2023.day07;
 
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 import com.juancnuno.adventofcode.CharSequences;
 
@@ -31,13 +30,12 @@ public class Hand implements Comparable<Hand> {
         this.cards = cards;
     }
 
-    public static Hand parse(String hand) {
+    public static Hand parse(String hand, Rule rule) {
         var cards = CharSequences.chars(hand)
-                .map(Card::valueOf)
+                .map(card -> Card.valueOf(card, rule))
                 .toList();
 
-        var map = cards.stream()
-                .collect(Collectors.groupingBy(card -> card, Collectors.summingInt(card -> 1)));
+        var map = rule.count(cards);
 
         return FiveOfKind.newFiveOfKind(map, cards)
                 .or(() -> FourOfKind.newFourOfKind(map, cards))

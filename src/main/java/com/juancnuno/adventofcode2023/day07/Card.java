@@ -1,9 +1,9 @@
 package com.juancnuno.adventofcode2023.day07;
 
 enum Card {
-    TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
+    JOKER, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
 
-    static Card valueOf(char card) {
+    static Card valueOf(char card, Rule rule) {
         return switch (card) {
             case '2' ->
                 TWO;
@@ -24,7 +24,7 @@ enum Card {
             case 'T' ->
                 TEN;
             case 'J' ->
-                JACK;
+                rule.getCard();
             case 'Q' ->
                 QUEEN;
             case 'K' ->
