@@ -3,9 +3,9 @@ package com.juancnuno.adventofcode2023.day08.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import com.juancnuno.adventofcode2023.day08.Camel;
+import com.juancnuno.adventofcode2023.day08.Part1;
 
-public final class CamelTest {
+public final class Part1Test {
 
     @Test
     public void getStepCount1() {
@@ -22,10 +22,10 @@ public final class CamelTest {
             ZZZ = (ZZZ, ZZZ)
             """;
 
-        var camel = new Camel(input.lines().iterator());
+        var i = input.lines().iterator();
 
         // Act
-        var count = camel.getStepCount();
+        var count = Part1.getStepCount(i);
 
         // Assert
         assertEquals(2, count);
@@ -42,10 +42,10 @@ public final class CamelTest {
             ZZZ = (ZZZ, ZZZ)
             """;
 
-        var camel = new Camel(input.lines().iterator());
+        var i = input.lines().iterator();
 
         // Act
-        var count = camel.getStepCount();
+        var count = Part1.getStepCount(i);
 
         // Assert
         assertEquals(6, count);

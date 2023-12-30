@@ -2,15 +2,20 @@ package com.juancnuno.adventofcode2023.day08;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.juancnuno.adventofcode.Matcher;
 
 final class Network {
 
-    private final Node start;
+    private final Iterator<String> i;
 
     Network(Iterator<String> i) {
+        this.i = i;
+    }
+
+    Map<String, Node> getMap() {
         var label = "(\\w\\w\\w)";
         var node = Pattern.compile(label + " = \\(" + label + ", " + label + "\\)");
 
@@ -24,10 +29,6 @@ final class Network {
             parent.setRightChild(map.computeIfAbsent(matcher.group(3), Node::new));
         }
 
-        start = map.get("AAA");
-    }
-
-    Node getStart() {
-        return start;
+        return map;
     }
 }

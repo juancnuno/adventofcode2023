@@ -2,12 +2,16 @@ package com.juancnuno.adventofcode2023.day08;
 
 final class Node {
 
-    private final Object label;
+    private final String label;
     private Node leftChild;
     private Node rightChild;
 
     Node(String label) {
         this.label = label;
+    }
+
+    String getLabel() {
+        return label;
     }
 
     Node getLeftChild() {
@@ -24,9 +28,5 @@ final class Node {
 
     void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
-    }
-
-    boolean isEnd() {
-        return label.equals("ZZZ");
     }
 }
