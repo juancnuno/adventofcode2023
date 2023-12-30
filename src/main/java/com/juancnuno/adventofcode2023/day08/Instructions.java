@@ -22,6 +22,6 @@ public final class Instructions implements Iterator<Instruction> {
             index = 0;
         }
 
-        return Instruction.valueOf(instructions.charAt(index++));
+        return Instruction.valueOf(String.valueOf(instructions.charAt(index++)));
     }
 }

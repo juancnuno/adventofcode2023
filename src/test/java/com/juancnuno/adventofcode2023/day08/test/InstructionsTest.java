@@ -19,6 +19,6 @@ public final class InstructionsTest {
         var instructions = List.of(i.next(), i.next(), i.next());
 
         // Assert
-        assertEquals(List.of(Instruction.RIGHT, Instruction.LEFT, Instruction.RIGHT), instructions);
+        assertEquals(List.of(Instruction.R, Instruction.L, Instruction.R), instructions);
     }
 }
