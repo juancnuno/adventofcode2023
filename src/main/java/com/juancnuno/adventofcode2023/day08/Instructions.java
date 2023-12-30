@@ -2,7 +2,7 @@ package com.juancnuno.adventofcode2023.day08;
 
 import java.util.Iterator;
 
-public final class Instructions implements Iterator<Instruction> {
+public final class Instructions implements Iterator<Character> {
 
     private final CharSequence instructions;
     private int index;
@@ -17,11 +17,11 @@ public final class Instructions implements Iterator<Instruction> {
     }
 
     @Override
-    public Instruction next() {
+    public Character next() {
         if (index == instructions.length()) {
             index = 0;
         }
 
-        return Instruction.valueOf(String.valueOf(instructions.charAt(index++)));
+        return instructions.charAt(index++);
     }
 }

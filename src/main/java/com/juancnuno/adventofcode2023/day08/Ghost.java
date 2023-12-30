@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 final class Ghost extends Stepper {
 
-    Ghost(Node currentNode, Iterator<Instruction> i) {
+    Ghost(Node currentNode, Iterator<Character> i) {
         super(currentNode, i);
     }
 

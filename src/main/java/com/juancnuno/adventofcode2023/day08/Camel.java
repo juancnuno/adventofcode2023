@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 final class Camel extends Stepper {
 
-    Camel(Node currentNode, Iterator<Instruction> i) {
+    Camel(Node currentNode, Iterator<Character> i) {
         super(currentNode, i);
     }
 
