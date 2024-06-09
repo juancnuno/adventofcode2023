@@ -17,7 +17,7 @@ public final class History {
     }
 
     private History(History history) {
-        this.values = IntStream.range(1, history.values.length)
+        values = IntStream.range(1, history.values.length)
                 .map(history::getMinusPrevious)
                 .toArray();
     }
@@ -26,7 +26,37 @@ public final class History {
         return values[i] - values[i - 1];
     }
 
+    public int getPrevious() {
+        var histories = getHistories();
+        var previous = 0;
+
+        for (var i = histories.size() - 2; i >= 0; i--) {
+            previous = histories.get(i).getFirst() - previous;
+        }
+
+        return previous;
+    }
+
+    private int getFirst() {
+        return values[0];
+    }
+
     public int getNext() {
+        var histories = getHistories();
+        var next = 0;
+
+        for (var i = histories.size() - 2; i >= 0; i--) {
+            next += histories.get(i).getLast();
+        }
+
+        return next;
+    }
+
+    private int getLast() {
+        return values[values.length - 1];
+    }
+
+    private List<History> getHistories() {
         var histories = new ArrayList<>(List.of(this));
 
         for (var history = histories.getLast(); !history.areAllEqualToZero();
@@ -34,21 +64,11 @@ public final class History {
             histories.add(new History(history));
         }
 
-        var nextValue = 0;
-
-        for (var i = histories.size() - 2; i >= 0; i--) {
-            nextValue += histories.get(i).getLast();
-        }
-
-        return nextValue;
+        return histories;
     }
 
     private boolean areAllEqualToZero() {
         return Arrays.stream(values).allMatch(value -> value == 0);
-    }
-
-    private int getLast() {
-        return values[values.length - 1];
     }
 
     @Override
