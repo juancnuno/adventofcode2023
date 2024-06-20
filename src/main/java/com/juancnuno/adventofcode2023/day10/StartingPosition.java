@@ -1,5 +1,7 @@
 package com.juancnuno.adventofcode2023.day10;
 
+import java.util.Optional;
+
 final class StartingPosition implements Pipe {
 
     private final int rowIndex;
@@ -21,12 +23,12 @@ final class StartingPosition implements Pipe {
     }
 
     @Override
-    public Pipe first(Grid grid) {
+    public Optional<Pipe> first(Grid grid) {
         return Pipe.valueOf(this, grid).first(grid);
     }
 
     @Override
-    public Pipe second(Grid grid) {
+    public Optional<Pipe> second(Grid grid) {
         throw new UnsupportedOperationException();
     }
 

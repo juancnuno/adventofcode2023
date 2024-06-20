@@ -8,11 +8,11 @@ record VerticalPipe(int rowIndex, int columnIndex) implements Pipe {
         var rowIndex = position.rowIndex();
         var columnIndex = position.columnIndex();
 
-        if (!grid.north(rowIndex, columnIndex).isConnectedToSouth()) {
+        if (!grid.north(rowIndex, columnIndex).map(Pipe::isConnectedToSouth).orElse(false)) {
             return Optional.empty();
         }
 
-        if (!grid.south(rowIndex, columnIndex).isConnectedToNorth()) {
+        if (!grid.south(rowIndex, columnIndex).map(Pipe::isConnectedToNorth).orElse(false)) {
             return Optional.empty();
         }
 
@@ -30,12 +30,12 @@ record VerticalPipe(int rowIndex, int columnIndex) implements Pipe {
     }
 
     @Override
-    public Pipe first(Grid grid) {
+    public Optional<Pipe> first(Grid grid) {
         return grid.north(rowIndex, columnIndex);
     }
 
     @Override
-    public Pipe second(Grid grid) {
+    public Optional<Pipe> second(Grid grid) {
         return grid.south(rowIndex, columnIndex);
     }
 

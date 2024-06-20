@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -45,20 +46,38 @@ public final class Grid {
         return count / 2;
     }
 
-    Pipe north(int rowIndex, int columnIndex) {
-        return rows.get(rowIndex - 1).get(columnIndex);
+    Optional<Pipe> north(int rowIndex, int columnIndex) {
+        if (rowIndex == 0) {
+            return Optional.empty();
+        }
+
+        return Optional.of(rows.get(rowIndex - 1).get(columnIndex));
     }
 
-    Pipe south(int rowIndex, int columnIndex) {
-        return rows.get(rowIndex + 1).get(columnIndex);
+    Optional<Pipe> south(int rowIndex, int columnIndex) {
+        if (rowIndex == rows.size() - 1) {
+            return Optional.empty();
+        }
+
+        return Optional.of(rows.get(rowIndex + 1).get(columnIndex));
     }
 
-    Pipe east(int rowIndex, int columnIndex) {
-        return rows.get(rowIndex).get(columnIndex + 1);
+    Optional<Pipe> east(int rowIndex, int columnIndex) {
+        var row = rows.get(rowIndex);
+
+        if (columnIndex == row.size() - 1) {
+            return Optional.empty();
+        }
+
+        return Optional.of(row.get(columnIndex + 1));
     }
 
-    Pipe west(int rowIndex, int columnIndex) {
-        return rows.get(rowIndex).get(columnIndex - 1);
+    Optional<Pipe> west(int rowIndex, int columnIndex) {
+        if (columnIndex == 0) {
+            return Optional.empty();
+        }
+
+        return Optional.of(rows.get(rowIndex).get(columnIndex - 1));
     }
 
     @Override

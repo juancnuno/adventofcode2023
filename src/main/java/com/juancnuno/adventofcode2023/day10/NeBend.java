@@ -8,11 +8,11 @@ record NeBend(int rowIndex, int columnIndex) implements Pipe {
         var rowIndex = position.rowIndex();
         var columnIndex = position.columnIndex();
 
-        if (!grid.north(rowIndex, columnIndex).isConnectedToSouth()) {
+        if (!grid.north(rowIndex, columnIndex).map(Pipe::isConnectedToSouth).orElse(false)) {
             return Optional.empty();
         }
 
-        if (!grid.east(rowIndex, columnIndex).isConnectedToWest()) {
+        if (!grid.east(rowIndex, columnIndex).map(Pipe::isConnectedToWest).orElse(false)) {
             return Optional.empty();
         }
 
@@ -30,12 +30,12 @@ record NeBend(int rowIndex, int columnIndex) implements Pipe {
     }
 
     @Override
-    public Pipe first(Grid grid) {
+    public Optional<Pipe> first(Grid grid) {
         return grid.north(rowIndex, columnIndex);
     }
 
     @Override
-    public Pipe second(Grid grid) {
+    public Optional<Pipe> second(Grid grid) {
         return grid.east(rowIndex, columnIndex);
     }
 

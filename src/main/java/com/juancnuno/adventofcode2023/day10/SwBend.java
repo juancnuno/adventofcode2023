@@ -8,11 +8,11 @@ record SwBend(int rowIndex, int columnIndex) implements Pipe {
         var rowIndex = position.rowIndex();
         var columnIndex = position.columnIndex();
 
-        if (!grid.south(rowIndex, columnIndex).isConnectedToNorth()) {
+        if (!grid.south(rowIndex, columnIndex).map(Pipe::isConnectedToNorth).orElse(false)) {
             return Optional.empty();
         }
 
-        if (!grid.west(rowIndex, columnIndex).isConnectedToEast()) {
+        if (!grid.west(rowIndex, columnIndex).map(Pipe::isConnectedToEast).orElse(false)) {
             return Optional.empty();
         }
 
@@ -30,12 +30,12 @@ record SwBend(int rowIndex, int columnIndex) implements Pipe {
     }
 
     @Override
-    public Pipe first(Grid grid) {
+    public Optional<Pipe> first(Grid grid) {
         return grid.south(rowIndex, columnIndex);
     }
 
     @Override
-    public Pipe second(Grid grid) {
+    public Optional<Pipe> second(Grid grid) {
         return grid.west(rowIndex, columnIndex);
     }
 
