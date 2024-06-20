@@ -30,13 +30,13 @@ record NeBend(int rowIndex, int columnIndex) implements Pipe {
     }
 
     @Override
-    public Optional<Pipe> first(Grid grid) {
-        return grid.north(rowIndex, columnIndex);
+    public Pipe first(Grid grid) {
+        return grid.north(rowIndex, columnIndex).orElseThrow();
     }
 
     @Override
-    public Optional<Pipe> second(Grid grid) {
-        return grid.east(rowIndex, columnIndex);
+    public Pipe second(Grid grid) {
+        return grid.east(rowIndex, columnIndex).orElseThrow();
     }
 
     @Override

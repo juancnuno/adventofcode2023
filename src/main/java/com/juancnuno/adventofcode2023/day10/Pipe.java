@@ -1,7 +1,5 @@
 package com.juancnuno.adventofcode2023.day10;
 
-import java.util.Optional;
-
 interface Pipe {
 
     static Pipe valueOf(char pipe, int rowIndex, int columnIndex) {
@@ -58,11 +56,11 @@ interface Pipe {
     }
 
     default Pipe next(Object previous, Grid grid) {
-        var first = first(grid).orElseThrow();
-        return previous.equals(first) ? second(grid).orElseThrow() : first;
+        var first = first(grid);
+        return previous.equals(first) ? second(grid) : first;
     }
 
-    Optional<Pipe> first(Grid grid);
+    Pipe first(Grid grid);
 
-    Optional<Pipe> second(Grid grid);
+    Pipe second(Grid grid);
 }

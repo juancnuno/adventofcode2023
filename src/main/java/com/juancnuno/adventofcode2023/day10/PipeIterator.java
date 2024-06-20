@@ -15,7 +15,7 @@ final class PipeIterator implements Iterator<Object> {
         this.grid = grid;
 
         previous = startingPosition;
-        next = startingPosition.first(grid).orElseThrow();
+        next = startingPosition.first(grid);
     }
 
     @Override
