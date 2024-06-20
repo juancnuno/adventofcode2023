@@ -8,6 +8,24 @@ import com.juancnuno.adventofcode2023.day10.Grid;
 public final class GridTest {
 
     @Test
+    public void getStepCount() {
+        // Arrange
+        var grid = new Grid("""
+            -L|F7
+            7S-7|
+            L|7||
+            -L-J|
+            L|-JF
+            """);
+
+        // Act
+        var count = grid.getStepCount();
+
+        // Assert
+        assertEquals(4, count);
+    }
+
+    @Test
     public void testToString() {
         // Arrange
         var rows = """

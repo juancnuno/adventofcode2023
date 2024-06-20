@@ -1,25 +1,28 @@
 package com.juancnuno.adventofcode2023.day10;
 
-final class Ground implements Pipe {
+final class StartingPosition implements Pipe {
 
-    static final Pipe INSTANCE = new Ground();
+    private final int rowIndex;
+    private final int columnIndex;
 
-    private Ground() {
+    StartingPosition(int rowIndex, int columnIndex) {
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
     }
 
     @Override
     public int rowIndex() {
-        throw new UnsupportedOperationException();
+        return rowIndex;
     }
 
     @Override
     public int columnIndex() {
-        throw new UnsupportedOperationException();
+        return columnIndex;
     }
 
     @Override
     public Pipe first(Grid grid) {
-        throw new UnsupportedOperationException();
+        return Pipe.valueOf(this, grid).first(grid);
     }
 
     @Override
@@ -29,6 +32,6 @@ final class Ground implements Pipe {
 
     @Override
     public String toString() {
-        return ".";
+        return "S";
     }
 }
