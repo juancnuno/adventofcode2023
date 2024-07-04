@@ -10,11 +10,11 @@ public final class GalaxyTest {
     @Test
     public void distance1() {
         // Arrange
-        var galaxy1 = new Galaxy(6, 1);
-        var galaxy2 = new Galaxy(11, 5);
+        var galaxy5 = new Galaxy(6, 1);
+        var galaxy9 = new Galaxy(11, 5);
 
         // Act
-        var distance = galaxy1.distance(galaxy2);
+        var distance = galaxy5.distance(galaxy9);
 
         // Assert
         assertEquals(9, distance);
