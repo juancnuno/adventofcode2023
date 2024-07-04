@@ -19,4 +19,17 @@ public final class GalaxyTest {
         // Assert
         assertEquals(9, distance);
     }
+
+    @Test
+    public void distance2() {
+        // Arrange
+        var galaxy1 = new Galaxy(0, 4);
+        var galaxy7 = new Galaxy(10, 9);
+
+        // Act
+        var distance = galaxy1.distance(galaxy7);
+
+        // Assert
+        assertEquals(15, distance);
+    }
 }
