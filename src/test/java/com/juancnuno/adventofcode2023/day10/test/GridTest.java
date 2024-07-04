@@ -44,6 +44,28 @@ public final class GridTest {
     }
 
     @Test
+    public void getEnclosedTileCount() {
+        // Arrange
+        var grid = new Grid("""
+            ...........
+            .S-------7.
+            .|F-----7|.
+            .||.....||.
+            .||.....||.
+            .|L-7.F-J|.
+            .|..|.|..|.
+            .L--J.L--J.
+            ...........
+            """);
+
+        // Act
+        var count = grid.getEnclosedTileCount();
+
+        // Assert
+        assertEquals(4, count);
+    }
+
+    @Test
     public void testToString() {
         // Arrange
         var rows = """

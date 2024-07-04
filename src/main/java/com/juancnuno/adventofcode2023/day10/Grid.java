@@ -31,12 +31,7 @@ public final class Grid {
     }
 
     public int getStepCount() {
-        var position = rows.stream()
-                .flatMap(Collection::stream)
-                .filter(StartingPosition.class::isInstance)
-                .findFirst();
-
-        var i = new PipeIterator((StartingPosition) position.orElseThrow(), this);
+        var i = new PipeIterator(getStartingPosition(), this);
         var count = 1;
 
         for (; i.hasNext(); i.next()) {
@@ -78,6 +73,45 @@ public final class Grid {
         }
 
         return Optional.of(rows.get(rowIndex).get(columnIndex - 1));
+    }
+
+    public int getEnclosedTileCount() {
+        // Pick's theorem
+        return getArea() - getStepCount() + 1;
+    }
+
+    private int getArea() {
+        var position = getStartingPosition();
+        var i = new PipeIterator(position, this);
+
+        var pipes = new ArrayList<Pipe>();
+        pipes.add(position);
+
+        while (i.hasNext()) {
+            pipes.add(i.next());
+        }
+
+        // Shoelace formula
+        var area = 0;
+
+        for (int j = 1, size = pipes.size(); j < size; j++) {
+            area += determinant(pipes.get(j - 1), pipes.get(j));
+        }
+
+        area += determinant(pipes.getLast(), pipes.getFirst());
+        return area / 2;
+    }
+
+    private static int determinant(Pipe pipe1, Pipe pipe2) {
+        return pipe1.rowIndex() * pipe2.columnIndex() - pipe2.rowIndex() * pipe1.columnIndex();
+    }
+
+    private StartingPosition getStartingPosition() {
+        return (StartingPosition) rows.stream()
+                .flatMap(Collection::stream)
+                .filter(StartingPosition.class::isInstance)
+                .findFirst()
+                .orElseThrow();
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.juancnuno.adventofcode2023.day10;
 
 import java.util.Iterator;
 
-final class PipeIterator implements Iterator<Object> {
+final class PipeIterator implements Iterator<Pipe> {
 
     private final Object startingPosition;
     private final Grid grid;
@@ -24,7 +24,7 @@ final class PipeIterator implements Iterator<Object> {
     }
 
     @Override
-    public Object next() {
+    public Pipe next() {
         var oldNext = next;
 
         next = next.next(previous, grid);
