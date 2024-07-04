@@ -99,7 +99,7 @@ public final class Grid {
         }
 
         area += determinant(pipes.getLast(), pipes.getFirst());
-        return area / 2;
+        return Math.abs(area / 2);
     }
 
     private static int determinant(Pipe pipe1, Pipe pipe2) {
