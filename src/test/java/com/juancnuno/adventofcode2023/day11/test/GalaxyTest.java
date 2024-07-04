@@ -45,4 +45,17 @@ public final class GalaxyTest {
         // Assert
         assertEquals(17, distance);
     }
+
+    @Test
+    public void distance4() {
+        // Arrange
+        var galaxy8 = new Galaxy(11, 0);
+        var galaxy9 = new Galaxy(11, 5);
+
+        // Act
+        var distance = galaxy8.distance(galaxy9);
+
+        // Assert
+        assertEquals(5, distance);
+    }
 }
