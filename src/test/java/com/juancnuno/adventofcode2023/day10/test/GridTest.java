@@ -44,7 +44,7 @@ public final class GridTest {
     }
 
     @Test
-    public void getEnclosedTileCount() {
+    public void getEnclosedTileCount1() {
         // Arrange
         var grid = new Grid("""
             ...........
@@ -56,6 +56,28 @@ public final class GridTest {
             .|..|.|..|.
             .L--J.L--J.
             ...........
+            """);
+
+        // Act
+        var count = grid.getEnclosedTileCount();
+
+        // Assert
+        assertEquals(4, count);
+    }
+
+    @Test
+    public void getEnclosedTileCount2() {
+        // Arrange
+        var grid = new Grid("""
+            ..........
+            .S------7.
+            .|F----7|.
+            .||....||.
+            .||....||.
+            .|L-7F-J|.
+            .|..||..|.
+            .L--JL--J.
+            ..........
             """);
 
         // Act
