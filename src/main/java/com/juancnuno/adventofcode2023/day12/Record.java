@@ -20,15 +20,14 @@ public final class Record {
             return List.of("");
         }
 
-        return switch (value.charAt(0)) {
-            case '.' ->
-                getArrangements(value.substring(1, value.length())).stream().map(arrangement -> '.' + arrangement).toList();
-            case '#' ->
-                List.of();
-            case '?' ->
-                List.of();
-            default ->
-                throw new IllegalArgumentException(value);
-        };
+        var c = value.charAt(0);
+
+        if (c == '?') {
+            return List.of();
+        }
+
+        return getArrangements(value.substring(1, value.length())).stream()
+                .map(arrangement -> c + arrangement)
+                .toList();
     }
 }
