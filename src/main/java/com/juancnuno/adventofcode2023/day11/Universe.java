@@ -116,13 +116,13 @@ public record Universe(Set<Galaxy> galaxies) {
                 .collect(Collectors.toSet());
     }
 
-    public int getDistanceSum() {
+    public long getDistanceSum() {
         return getDistanceSum(2);
     }
 
-    public int getDistanceSum(int amount) {
+    public long getDistanceSum(int amount) {
         return Sets.combinations(expand(amount).galaxies, 2).stream()
-                .mapToInt(Universe::distance)
+                .mapToLong(Universe::distance)
                 .sum();
     }
 
