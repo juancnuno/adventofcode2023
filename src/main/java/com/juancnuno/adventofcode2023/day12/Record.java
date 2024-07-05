@@ -57,7 +57,7 @@ public record Record(CharSequence value, Collection<Integer> sizes) {
         return arrangements.stream().map(arrangement -> prefix + arrangement);
     }
 
-    public Object unfold() {
+    public Record unfold() {
         var newValue = IntStream.range(0, 5)
                 .mapToObj(i -> value)
                 .collect(Collectors.joining("?"));
