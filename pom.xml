@@ -19,6 +19,12 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.2.1-jre</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.juancnuno.adventofcode</groupId>
       <artifactId>adventofcode</artifactId>
       <version>1.0-SNAPSHOT</version>

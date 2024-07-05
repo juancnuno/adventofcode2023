@@ -2,12 +2,15 @@ package com.juancnuno.adventofcode2023.day11;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public record Universe(Collection<Galaxy> galaxies) {
+import com.google.common.collect.Sets;
+
+public record Universe(Set<Galaxy> galaxies) {
 
     private Universe(Universe universe) {
         this(new HashSet<>(universe.galaxies));
@@ -32,7 +35,7 @@ public record Universe(Collection<Galaxy> galaxies) {
         return new Universe(galaxies);
     }
 
-    public Object expand() {
+    public Universe expand() {
         return expandRows().expandColumns();
     }
 
@@ -66,7 +69,7 @@ public record Universe(Collection<Galaxy> galaxies) {
         return filter(galaxy -> galaxy.rowIndex() > rowIndex);
     }
 
-    private Object expandColumns() {
+    private Universe expandColumns() {
         var universe = new Universe(this);
 
         for (int columnIndex = 0, columnCount = universe.getColumnCount(); columnIndex < columnCount; columnIndex++) {
@@ -106,6 +109,17 @@ public record Universe(Collection<Galaxy> galaxies) {
         return galaxies.stream()
                 .map(operator)
                 .collect(Collectors.toSet());
+    }
+
+    public int getDistanceSum() {
+        return Sets.combinations(expand().galaxies, 2).stream()
+                .mapToInt(Universe::distance)
+                .sum();
+    }
+
+    private static int distance(Iterable<Galaxy> pair) {
+        var i = pair.iterator();
+        return i.next().distance(i.next());
     }
 
     @Override

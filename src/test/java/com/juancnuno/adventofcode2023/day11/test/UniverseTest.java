@@ -46,6 +46,29 @@ public final class UniverseTest {
     }
 
     @Test
+    public void getDistanceSum() {
+        // Arrange
+        var universe = Universe.valueOf("""
+            ...#......
+            .......#..
+            #.........
+            ..........
+            ......#...
+            .#........
+            .........#
+            ..........
+            .......#..
+            #...#.....
+            """);
+
+        // Act
+        var sum = universe.getDistanceSum();
+
+        // Assert
+        assertEquals(374, sum);
+    }
+
+    @Test
     public void testToString() {
         // Arrange
         var rows = """
