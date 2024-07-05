@@ -11,7 +11,7 @@ public final class Part1 {
 
     public static int getArrangementCountSum(Stream<String> records) {
         return records
-                .map(Record::new)
+                .map(Record::from)
                 .mapToInt(Record::getArrangementCount)
                 .sum();
     }

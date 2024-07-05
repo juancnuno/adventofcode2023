@@ -1,25 +1,25 @@
 package com.juancnuno.adventofcode2023.day12;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public final class Record {
+public record Record(CharSequence value, Collection<Integer> sizes) {
 
-    private final CharSequence value;
-    private final Collection<Integer> sizes;
-
-    public Record(String record) {
+    public static Record from(String record) {
         var valueAndSizes = record.split(" ");
-        value = valueAndSizes[0];
 
-        sizes = Arrays.stream(valueAndSizes[1].split(","))
+        var sizes = Arrays.stream(valueAndSizes[1].split(","))
                 .map(Integer::parseInt)
                 .toList();
+
+        return new Record(valueAndSizes[0], sizes);
     }
 
     public int getArrangementCount() {
@@ -55,5 +55,16 @@ public final class Record {
 
     private static Stream<String> prepend(Collection<String> arrangements, char prefix) {
         return arrangements.stream().map(arrangement -> prefix + arrangement);
+    }
+
+    public Object unfold() {
+        var newValue = IntStream.range(0, 5)
+                .mapToObj(i -> value)
+                .collect(Collectors.joining("?"));
+
+        var newSizes = new ArrayList<Integer>(5 * sizes.size());
+        IntStream.range(0, 5).forEach(i -> newSizes.addAll(sizes));
+
+        return new Record(newValue, newSizes);
     }
 }
