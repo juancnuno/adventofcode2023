@@ -132,6 +132,29 @@ public final class UniverseTest {
     }
 
     @Test
+    public void getDistanceSum3() {
+        // Arrange
+        var universe = Universe.valueOf("""
+            ...#......
+            .......#..
+            #.........
+            ..........
+            ......#...
+            .#........
+            .........#
+            ..........
+            .......#..
+            #...#.....
+            """);
+
+        // Act
+        var sum = universe.getDistanceSum(100);
+
+        // Assert
+        assertEquals(8_410, sum);
+    }
+
+    @Test
     public void testToString() {
         // Arrange
         var rows = """
