@@ -2,6 +2,7 @@ package com.juancnuno.adventofcode2023.day12;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 public final class Record {
 
@@ -20,14 +21,16 @@ public final class Record {
             return List.of("");
         }
 
-        var c = value.charAt(0);
+        var prefix = value.charAt(0);
+        var prefixes = prefix == '?' ? Stream.of('.', '#') : Stream.of(prefix);
+        var arrangements = getArrangements(value.substring(1, value.length()));
 
-        if (c == '?') {
-            return List.of();
-        }
-
-        return getArrangements(value.substring(1, value.length())).stream()
-                .map(arrangement -> c + arrangement)
+        return prefixes
+                .flatMap(p -> prepend(arrangements, p))
                 .toList();
+    }
+
+    private static Stream<String> prepend(Collection<String> arrangements, char prefix) {
+        return arrangements.stream().map(arrangement -> prefix + arrangement);
     }
 }

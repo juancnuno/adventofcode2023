@@ -50,7 +50,6 @@ public final class RecordTest {
         assertEquals(List.of("#"), arrangements);
     }
 
-    @Disabled
     @Test
     public void getArrangements4() {
         // Act
