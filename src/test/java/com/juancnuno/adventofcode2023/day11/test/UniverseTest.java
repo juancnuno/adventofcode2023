@@ -86,7 +86,7 @@ public final class UniverseTest {
     }
 
     @Test
-    public void getDistanceSum() {
+    public void getDistanceSum1() {
         // Arrange
         var universe = Universe.valueOf("""
             ...#......
@@ -106,6 +106,29 @@ public final class UniverseTest {
 
         // Assert
         assertEquals(374, sum);
+    }
+
+    @Test
+    public void getDistanceSum2() {
+        // Arrange
+        var universe = Universe.valueOf("""
+            ...#......
+            .......#..
+            #.........
+            ..........
+            ......#...
+            .#........
+            .........#
+            ..........
+            .......#..
+            #...#.....
+            """);
+
+        // Act
+        var sum = universe.getDistanceSum(10);
+
+        // Assert
+        assertEquals(1_030, sum);
     }
 
     @Test

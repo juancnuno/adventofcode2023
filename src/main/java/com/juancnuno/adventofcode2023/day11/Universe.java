@@ -120,7 +120,7 @@ public record Universe(Set<Galaxy> galaxies) {
         return getDistanceSum(2);
     }
 
-    private int getDistanceSum(int amount) {
+    public int getDistanceSum(int amount) {
         return Sets.combinations(expand(amount).galaxies, 2).stream()
                 .mapToInt(Universe::distance)
                 .sum();
