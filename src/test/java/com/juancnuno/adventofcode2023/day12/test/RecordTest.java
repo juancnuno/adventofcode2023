@@ -24,11 +24,40 @@ public final class RecordTest {
     }
 
     @Test
-    public void getArrangements() {
+    public void getArrangements1() {
         // Act
         var arrangements = Record.getArrangements("");
 
         // Assert
         assertEquals(List.of(""), arrangements);
+    }
+
+    @Test
+    public void getArrangements2() {
+        // Act
+        var arrangements = Record.getArrangements(".");
+
+        // Assert
+        assertEquals(List.of("."), arrangements);
+    }
+
+    @Disabled
+    @Test
+    public void getArrangements3() {
+        // Act
+        var arrangements = Record.getArrangements("#");
+
+        // Assert
+        assertEquals(List.of("#"), arrangements);
+    }
+
+    @Disabled
+    @Test
+    public void getArrangements4() {
+        // Act
+        var arrangements = Record.getArrangements("?");
+
+        // Assert
+        assertEquals(List.of(".", "#"), arrangements);
     }
 }
