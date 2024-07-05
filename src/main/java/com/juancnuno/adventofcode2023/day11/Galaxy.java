@@ -2,12 +2,12 @@ package com.juancnuno.adventofcode2023.day11;
 
 public record Galaxy(int rowIndex, int columnIndex) {
 
-    Galaxy incrementRowIndex() {
-        return new Galaxy(rowIndex + 1, columnIndex);
+    Galaxy incrementRowIndex(int amount) {
+        return new Galaxy(rowIndex + amount, columnIndex);
     }
 
-    Galaxy incrementColumnIndex() {
-        return new Galaxy(rowIndex, columnIndex + 1);
+    Galaxy incrementColumnIndex(int amount) {
+        return new Galaxy(rowIndex, columnIndex + amount);
     }
 
     public int distance(Galaxy galaxy) {

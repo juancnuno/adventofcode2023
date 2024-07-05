@@ -36,10 +36,15 @@ public record Universe(Set<Galaxy> galaxies) {
     }
 
     public Universe expand() {
-        return expandRows().expandColumns();
+        return expand(2);
     }
 
-    private Universe expandRows() {
+    public Universe expand(int amount) {
+        amount--;
+        return expandRows(amount).expandColumns(amount);
+    }
+
+    private Universe expandRows(int amount) {
         var universe = new Universe(this);
 
         for (int rowIndex = 0, rowCount = universe.getRowCount(); rowIndex < rowCount; rowIndex++) {
@@ -50,10 +55,10 @@ public record Universe(Set<Galaxy> galaxies) {
             var g = universe.filterIsRowIndexGreaterThan(rowIndex);
 
             universe.galaxies.removeAll(g);
-            universe.galaxies.addAll(map(g, Galaxy::incrementRowIndex));
+            universe.galaxies.addAll(map(g, galaxy -> galaxy.incrementRowIndex(amount)));
 
-            rowIndex++;
-            rowCount++;
+            rowIndex += amount;
+            rowCount += amount;
         }
 
         return universe;
@@ -69,7 +74,7 @@ public record Universe(Set<Galaxy> galaxies) {
         return filter(galaxy -> galaxy.rowIndex() > rowIndex);
     }
 
-    private Universe expandColumns() {
+    private Universe expandColumns(int amount) {
         var universe = new Universe(this);
 
         for (int columnIndex = 0, columnCount = universe.getColumnCount(); columnIndex < columnCount; columnIndex++) {
@@ -80,10 +85,10 @@ public record Universe(Set<Galaxy> galaxies) {
             var g = universe.filterIsColumnIndexGreaterThan(columnIndex);
 
             universe.galaxies.removeAll(g);
-            universe.galaxies.addAll(map(g, Galaxy::incrementColumnIndex));
+            universe.galaxies.addAll(map(g, galaxy -> galaxy.incrementColumnIndex(amount)));
 
-            columnIndex++;
-            columnCount++;
+            columnIndex += amount;
+            columnCount += amount;
         }
 
         return universe;
@@ -112,7 +117,11 @@ public record Universe(Set<Galaxy> galaxies) {
     }
 
     public int getDistanceSum() {
-        return Sets.combinations(expand().galaxies, 2).stream()
+        return getDistanceSum(2);
+    }
+
+    private int getDistanceSum(int amount) {
+        return Sets.combinations(expand(amount).galaxies, 2).stream()
                 .mapToInt(Universe::distance)
                 .sum();
     }
