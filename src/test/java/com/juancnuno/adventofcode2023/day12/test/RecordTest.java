@@ -1,12 +1,16 @@
 package com.juancnuno.adventofcode2023.day12.test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.juancnuno.adventofcode2023.day12.Record;
 
 public final class RecordTest {
 
+    @Disabled
     @Test
     public void getArrangementCount() {
         // Arrange
@@ -17,5 +21,14 @@ public final class RecordTest {
 
         // Assert
         assertEquals(1, count);
+    }
+
+    @Test
+    public void getArrangements() {
+        // Act
+        var arrangements = Record.getArrangements("");
+
+        // Assert
+        assertEquals(List.of(""), arrangements);
     }
 }
