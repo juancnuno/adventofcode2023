@@ -16,14 +16,14 @@ public final class Record {
         return 0;
     }
 
-    public static Collection<String> getArrangements(String value) {
+    public static Collection<String> getArrangements(CharSequence value) {
         if (value.equals("")) {
             return List.of("");
         }
 
         var prefix = value.charAt(0);
         var prefixes = prefix == '?' ? Stream.of('.', '#') : Stream.of(prefix);
-        var arrangements = getArrangements(value.substring(1, value.length()));
+        var arrangements = getArrangements(value.subSequence(1, value.length()));
 
         return prefixes
                 .flatMap(p -> prepend(arrangements, p))
