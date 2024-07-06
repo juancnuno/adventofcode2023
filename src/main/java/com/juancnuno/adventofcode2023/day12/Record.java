@@ -20,20 +20,16 @@ public record Record(String value, Collection<Integer> sizes) {
     }
 
     public int getArrangementCount() {
-        return getArrangementCount(value, getPattern());
-    }
-
-    private static int getArrangementCount(String value, Pattern pattern) {
         var i = value.indexOf('?');
 
         if (i == -1) {
-            return pattern.matcher(value).matches() ? 1 : 0;
+            return getPattern().matcher(value).matches() ? 1 : 0;
         }
 
         var prefix = value.substring(0, i);
         var suffix = value.substring(i + 1);
 
-        return getArrangementCount(prefix + '.' + suffix, pattern) + getArrangementCount(prefix + '#' + suffix, pattern);
+        return new Record(prefix + '.' + suffix, sizes).getArrangementCount() + new Record(prefix + '#' + suffix, sizes).getArrangementCount();
     }
 
     private Pattern getPattern() {
