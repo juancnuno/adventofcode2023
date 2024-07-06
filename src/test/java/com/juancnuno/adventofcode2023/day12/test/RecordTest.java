@@ -1,7 +1,5 @@
 package com.juancnuno.adventofcode2023.day12.test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -79,42 +77,6 @@ public final class RecordTest {
 
         // Assert
         assertEquals(10, count);
-    }
-
-    @Test
-    public void getArrangements1() {
-        // Act
-        var arrangements = Record.getArrangements("");
-
-        // Assert
-        assertEquals(List.of(""), arrangements);
-    }
-
-    @Test
-    public void getArrangements2() {
-        // Act
-        var arrangements = Record.getArrangements(".");
-
-        // Assert
-        assertEquals(List.of("."), arrangements);
-    }
-
-    @Test
-    public void getArrangements3() {
-        // Act
-        var arrangements = Record.getArrangements("#");
-
-        // Assert
-        assertEquals(List.of("#"), arrangements);
-    }
-
-    @Test
-    public void getArrangements4() {
-        // Act
-        var arrangements = Record.getArrangements("?");
-
-        // Assert
-        assertEquals(List.of(".", "#"), arrangements);
     }
 
     @Test

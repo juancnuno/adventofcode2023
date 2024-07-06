@@ -3,14 +3,11 @@ package com.juancnuno.adventofcode2023.day12;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-public record Record(CharSequence value, Collection<Integer> sizes) {
+public record Record(String value, Collection<Integer> sizes) {
 
     public static Record from(String record) {
         var valueAndSizes = record.split(" ");
@@ -23,12 +20,20 @@ public record Record(CharSequence value, Collection<Integer> sizes) {
     }
 
     public int getArrangementCount() {
-        var pattern = getPattern();
+        return getArrangementCount(value, getPattern());
+    }
 
-        return (int) getArrangements(value).stream()
-                .map(pattern::matcher)
-                .filter(Matcher::matches)
-                .count();
+    private static int getArrangementCount(String value, Pattern pattern) {
+        var i = value.indexOf('?');
+
+        if (i == -1) {
+            return pattern.matcher(value).matches() ? 1 : 0;
+        }
+
+        var prefix = value.substring(0, i);
+        var suffix = value.substring(i + 1);
+
+        return getArrangementCount(prefix + '.' + suffix, pattern) + getArrangementCount(prefix + '#' + suffix, pattern);
     }
 
     private Pattern getPattern() {
@@ -37,24 +42,6 @@ public record Record(CharSequence value, Collection<Integer> sizes) {
                 .collect(Collectors.joining("\\.+", "\\.*", "\\.*"));
 
         return Pattern.compile(regex);
-    }
-
-    public static Collection<String> getArrangements(CharSequence value) {
-        if (value.equals("")) {
-            return List.of("");
-        }
-
-        var prefix = value.charAt(0);
-        var prefixes = prefix == '?' ? Stream.of('.', '#') : Stream.of(prefix);
-        var arrangements = getArrangements(value.subSequence(1, value.length()));
-
-        return prefixes
-                .flatMap(p -> prepend(arrangements, p))
-                .toList();
-    }
-
-    private static Stream<String> prepend(Collection<String> arrangements, char prefix) {
-        return arrangements.stream().map(arrangement -> prefix + arrangement);
     }
 
     public Record unfold() {
